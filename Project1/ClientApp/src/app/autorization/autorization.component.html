@@ -1,0 +1,20 @@
+<div *ngIf = "!authservices.isAutorize">
+
+  <p>Autorization </p>
+  <label>Login</label>
+  <input [(ngModel)]="login" />
+  <label>Password</label>
+  <input [(ngModel)]="password" />
+
+</div>
+
+<div *ngIf="status == 'Ви авторизовані'">
+  <button (click)="Logout()">Вихід</button>
+</div>
+<div *ngIf="status != 'Ви авторизовані'">
+  <button (click)="Login()">Підтвердити</button>
+
+</div>
+
+
+<p> {{status}}</p>

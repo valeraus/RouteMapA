@@ -1,0 +1,30 @@
+<div class="simple-container">
+  <div class="map">
+
+    <div class="menu-bottom" v-bind:class="{hide:edit}">
+      <button (click)="MenuShow()">Прокласти маршрут</button>
+      <button (click)="buildRoadByPoint()">Побудувати по точкам</button>
+    </div>
+
+    <div [style]="style" class="menu">
+      <input #mapSearch />
+      <input #mapSearch2 />
+    </div>
+
+    <google-map height="100vh"
+                width="100%"
+                [options]="options"
+                [center]="center"
+                [zoom]="zoom"
+                (mapClick)="addMarker($event)">
+      <map-marker *ngFor="let marker of markers"
+                  [options]="marker"></map-marker>
+      <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
+                               [directions]="directionsResults"></map-directions-renderer>
+
+    </google-map>
+    <button (click)="Set()">Coordinate change</button>
+  </div>
+</div>
+
+
