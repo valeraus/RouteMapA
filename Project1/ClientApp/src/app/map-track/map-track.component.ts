@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker, MapDirectionsService, GoogleMap } from '@angular/google-maps';
-//import { MapTrackService } from '../../../shared/services/map.track.service'
 import { map, Observable } from 'rxjs';
 import { StylesMap } from './map.style';
 
@@ -57,7 +56,6 @@ export class MapTrackComponent implements AfterViewInit {
         fontFamily: "Century Gothic"
       }
     });
-
   }
 
   directionsResults$: Observable<google.maps.DirectionsResult | undefined>;
@@ -107,8 +105,6 @@ export class MapTrackComponent implements AfterViewInit {
     }
 
   }
-
-
 
   ngAfterViewInit(): void {
     if (this.searchField != null && this.searchField2 != null) {
