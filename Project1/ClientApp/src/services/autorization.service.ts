@@ -18,12 +18,11 @@ export class AutorizationService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
 
-    const Token = localStorage.getItem('token');
-    if (Token != null) {
-      let params = new HttpParams()
-        .append("token", Token);
+    const token = localStorage.getItem('token');
+    if (token != null) {
+      let params = { token: token }
 
-      http.get<string>(baseUrl + 'test/autorize', { params }).subscribe((responce) => {
+      http.post<any>(this.baseUrl + 'Authorization/Update', params).subscribe((responce) => {
         this.UserAutorizeSource.next('Ви авторизовані');
         localStorage.setItem('token', responce);
         this.isAutorize = true;
@@ -31,15 +30,17 @@ export class AutorizationService {
     }
   }
 
-  public Login(login: string, pass: string) {
-    let params = new HttpParams()
-      .append("login", login)
-      .append("pass", pass);
+  public Login(email: string, password: string) {
+    let params = {
+      email: email,
+      password: password
+    }
 
-    this.http.get<string>(this.baseUrl + 'test/login', { params }).subscribe((responce) => {
+    this.http.post<any>(this.baseUrl + 'authorization/login', params).subscribe((responce) => {
       this.UserAutorizeSource.next('Ви авторизовані');
       localStorage.setItem('token', responce);
       this.isAutorize = true;
+      console.log(10);
     },
 
       (error) => {

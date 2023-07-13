@@ -1,3 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Project1.Services;
+using System.Net;
+using System.Text;
+
 namespace Project1
 {
     public class Program
@@ -8,7 +14,25 @@ namespace Project1
 
             // Add services to the container.
 
+            byte[] key = Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Settings"]);
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<AuthServices>();
 
             var app = builder.Build();
 
@@ -23,6 +47,8 @@ namespace Project1
             app.UseStaticFiles();
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",

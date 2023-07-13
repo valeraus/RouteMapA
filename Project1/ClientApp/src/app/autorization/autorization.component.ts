@@ -7,7 +7,7 @@ import { AutorizationService } from '../../services/autorization.service'
 })
 export class AutorizationComponent implements OnInit {
 
-  login: string = "";
+  email: string = "";
   password: string = "";
   status: string = "";
   public authservices: AutorizationService; 
@@ -32,7 +32,7 @@ export class AutorizationComponent implements OnInit {
     });
   }
   Login() {
-    this.authservices.Login(this.login, this.password);
+    this.authservices.Login(this.email, this.password);
   }
   Logout() {
     this.authservices.Logout();
