@@ -1,0 +1,48 @@
+.rounded {
+  border-radius: 15px;
+}
+
+.auth-container {
+  width: 300px;
+  margin: 20px auto;
+}
+
+.auth-form {
+  text-align: center;
+  background-color: lightblue;
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: blue;
+  color: white;
+}
+
+
+.auth-container p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+}
+
+.status-message {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.auth-status {
+  margin-bottom: 20px;
+}

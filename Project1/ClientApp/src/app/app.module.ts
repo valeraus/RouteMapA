@@ -36,7 +36,8 @@ import {MapTrackComponent } from './map-track/map-track.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'autorization', component: AutorizationComponent },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AutorizationService] },
+      { path: '**', redirectTo: "autorization" },
     ])
   ],
   providers: [AutorizationService],

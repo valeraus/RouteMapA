@@ -10,7 +10,7 @@ namespace Project1.Models
         public string? Email { get; set; }
         //public string? Phone { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public string? Password { get; set; }
     }
 }

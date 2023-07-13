@@ -1,9 +1,10 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Inject, Injectable } from '@angular/core';
-import { Subject } from "rxjs";
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from "@angular/router";
+import { Observable, Subject } from "rxjs";
 import { getBaseUrl } from "../main";
 @Injectable()
-export class AutorizationService {
+export class AutorizationService implements CanActivate {
 
   private UserAutorizeSource = new Subject<string>();
   public UserAutorize$ = this.UserAutorizeSource.asObservable();
@@ -15,6 +16,14 @@ export class AutorizationService {
   public UserLogout$ = this.UserLogoutSource.asObservable();
 
   public isAutorize = false;
+
+  canActivate(): boolean {
+    if (!this.isAutorize) {
+      /*this.router.navigate(['authorization']);*/
+      return false;
+    }
+    return true;
+  }
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
 
@@ -35,7 +44,7 @@ export class AutorizationService {
       email: email,
       password: password
     }
-
+    console.log(params);
     this.http.post<any>(this.baseUrl + 'authorization/login', params).subscribe((responce) => {
       this.UserAutorizeSource.next('Ви авторизовані');
       localStorage.setItem('token', responce);

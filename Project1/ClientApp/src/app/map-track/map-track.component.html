@@ -1,17 +1,18 @@
 <div class="simple-container">
   <div class="map">
-
-    <div class="menu-bottom" v-bind:class="{hide:edit}">
-      <button (click)="MenuShow()">Прокласти маршрут</button>
-      <button (click)="buildRoadByPoint()">Побудувати по точкам</button>
+    <div class="menu-top rounded">
+      <button (click)="MenuShow()" class="btn btn-primary rounded">Прокласти маршрут</button>
+      <button (click)="buildRoadByPoint()" class="btn btn-primary rounded">Побудувати по точкам</button>
     </div>
 
-    <div [style]="style" class="menu">
-      <input #mapSearch />
-      <input #mapSearch2 />
+    <div [style]="style" class="menu rounded">
+      <div class="menu-content">
+        <input #mapSearch class="form-control rounded" placeholder="Введіть початкову точку"/>
+        <input #mapSearch2 class="form-control rounded" placeholder="Введіть кінцеву точку"/>
+      </div>
     </div>
 
-    <google-map height="100vh"
+    <google-map height="75vh"
                 width="100%"
                 [options]="options"
                 [center]="center"
@@ -21,10 +22,7 @@
                   [options]="marker"></map-marker>
       <map-directions-renderer *ngIf="(directionsResults$ | async) as directionsResults"
                                [directions]="directionsResults"></map-directions-renderer>
-
     </google-map>
-    <button (click)="Set()">Coordinate change</button>
+    <!--<button (click)="Set()" class="btn btn-primary rounded">Coordinate change</button>-->
   </div>
 </div>
-
-
