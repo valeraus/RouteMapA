@@ -3,7 +3,6 @@ import { MapInfoWindow, MapMarker, MapDirectionsService, GoogleMap } from '@angu
 import { map, Observable } from 'rxjs';
 import { StylesMap } from './map.style';
 
-
 @Component({
   selector: 'app-map-track',
   templateUrl: './map-track.component.html',
@@ -30,19 +29,7 @@ export class MapTrackComponent implements AfterViewInit {
 
   center: google.maps.LatLngLiteral = { lat: 48.8588548, lng: 2.347035 };
   zoom = 15;
-
-  markers: google.maps.MarkerOptions[] = [
-    //{
-    //  position: { lat: 48.8584, lng: 2.2945 },
-    //  animation: google.maps.Animation.DROP,
-    //  label: "123",
-
-    //},
-    // { lat: 48.8584, lng: 2.2945 }, // Eiffel Tower
-    //{ lat: 48.8606, lng: 2.3376 }, // Louvre Museum
-    // { lat: 48.8530, lng: 2.3499 }, // Cathédrale Notre-Dame de Paris
-  ];
-  //markerPositions: google.maps.LatLngLiteral[] = [];
+  markers: google.maps.MarkerOptions[] = [];
 
   addMarker(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) this.markers.push({
@@ -60,14 +47,9 @@ export class MapTrackComponent implements AfterViewInit {
 
   directionsResults$: Observable<google.maps.DirectionsResult | undefined>;
   constructor(private mapDirectionsService: MapDirectionsService) {
-
     navigator.geolocation.getCurrentPosition(position => {
-      this.center = { lat: position.coords.latitude, lng : position.coords.longitude }
-      console.log(position.coords.latitude);
-      console.log(position.coords.longitude);
+      this.center = { lat: position.coords.latitude, lng: position.coords.longitude }
     })
-
-
     this.directionsResults$ = new Observable();
   }
 
@@ -91,7 +73,6 @@ export class MapTrackComponent implements AfterViewInit {
           stopover: true
         })
       }
-
       const request: google.maps.DirectionsRequest = {
         origin: this.markers[0].position as google.maps.LatLngLiteral,
         destination: this.markers[this.markers.length - 1].position as google.maps.LatLngLiteral,
@@ -101,9 +82,7 @@ export class MapTrackComponent implements AfterViewInit {
       };
       this.markers = [];
       this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
-      console.log(this.mapDirectionsService.route.length);
     }
-
   }
 
   ngAfterViewInit(): void {
@@ -165,31 +144,4 @@ export class MapTrackComponent implements AfterViewInit {
     }
     this.style = clone;
   }
-
-
-  Set(): void {
-
-    let marker: google.maps.MarkerOptions =
-    {
-      title: "321",
-      position: { lat: 48.9584, lng: 2.3945 },
-      animation: google.maps.Animation.BOUNCE,
-      collisionBehavior: "2s",
-      cursor: "crosshair",
-      opacity: 0.5,
-      label: {
-        text: "123",
-        color: "#fff",
-        fontWeight: "900",
-        fontSize: "40px"
-      },
-
-    }
-
-    this.markers.push(marker);
-
-    //let clone = { ...(this.center)};
-    //clone.lat += 1;
-    //this.center = clone;
-  };
 }

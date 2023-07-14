@@ -16,10 +16,11 @@ export class AutorizationService implements CanActivate {
   public UserLogout$ = this.UserLogoutSource.asObservable();
 
   public isAutorize = false;
+  router: any;
 
   canActivate(): boolean {
     if (!this.isAutorize) {
-      /*this.router.navigate(['authorization']);*/
+      this.router.navigate(['authorization']);
       return false;
     }
     return true;
@@ -44,16 +45,14 @@ export class AutorizationService implements CanActivate {
       email: email,
       password: password
     }
-    console.log(params);
     this.http.post<any>(this.baseUrl + 'authorization/login', params).subscribe((responce) => {
       this.UserAutorizeSource.next('Ви авторизовані');
       localStorage.setItem('token', responce);
       this.isAutorize = true;
-      console.log(10);
     },
 
       (error) => {
-        this.UserAutorizeError.next('Не вдалось авторазивутаись')
+        this.UserAutorizeError.next('Не вдалось авторизуватись')
       })
   }
   public Logout() {

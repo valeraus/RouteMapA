@@ -81,8 +81,6 @@ namespace Project1.Controllers
                 {
                     return Unauthorized();
                 }
-
-
                 return Ok(new
                 {
                     Token = CreateJwtTokenFromUser(user.Data),
@@ -91,7 +89,6 @@ namespace Project1.Controllers
             }
             return Unauthorized();
         }
-
         string CreateJwtTokenFromUser(UsersModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
